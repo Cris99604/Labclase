@@ -1,0 +1,94 @@
+package telefonia;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author LAB-A2
+ */
+public class Telefonia {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        String numerodetelefono = "31465770";
+        double saldodisponible = 350;
+        double saldolempiras = 500;
+        double datos = 0;
+        double credito = 0;
+        int resp = 0 ;
+        double monto = 0;
+        double transferencia = 0;
+        double recarga = 0;
+        double mensajes = 100;
+        
+        while (resp != -1){
+        System.out.println("---- Claro Consultas ---- ");
+            System.out.println(" 1. Consulta de saldo  "); 
+            System.out.println(" 2. Realizar una transaccion ");
+            System.out.println(" 3. Solicitar un credito ");
+            System.out.println("-1. Salir ");
+            System.out.println(" Que desea realizar... ? ");
+            resp = entrada.nextInt();
+            
+            
+            switch(resp){
+                case 1:
+                    System.out.println("");
+                    System.out.println("----------------------------------------");
+                    System.out.println("El estado de la cuenta "+numerodetelefono);
+                    System.out.println("Total de saldo lempiras... "+ saldolempiras);
+                    System.out.println("Total Datos de Navegacion ...   ("+datos+")");
+                    System.out.println("----------------------------------------");
+                    System.out.println("Saldo disponible...   "+saldodisponible);
+                    System.out.println("----------------------------------------");
+                    System.out.println("Total mensajes....  "+mensajes);
+                    break;
+                    case 2: 
+                    System.out.println("");
+                    System.out.println("Debito de cuenta #"+numerodetelefono);
+                    System.out.println("Saldo disponible...   "+saldodisponible);
+                    System.out.println("Ingrese el monto a transferir... ");
+                    monto = entrada.nextDouble();
+                    
+                    if((saldodisponible-monto)> 100){
+                        transferencia += monto;
+                        saldodisponible = saldolempiras - transferencia;
+                    }else{
+                        System.err.println("No se puede transferir, monto mayor al disponible");
+                        resp = 0;
+                    }
+                    break;
+                    case 3: 
+                    System.out.println("----------------------------------------");
+                    System.out.println("Credito  #"+numerodetelefono);
+                    System.out.println("Ingrese el monto requerido... ");
+                    monto = entrada.nextDouble();
+                    if(monto<(saldodisponible*3)+1){
+                        recarga += monto;
+                        credito +=monto;
+                        saldodisponible = recarga - transferencia;
+                    }else{
+                       System.err.println("Monto no valido, excede el permitido.");
+                       resp = 0; 
+                    }
+                    break;
+                default: 
+                        resp = 0;
+            }
+            System.out.println("");
+            System.out.println(" ===================================================  "); 
+            System.out.println(" Presione -1 para salir, 0 para volver al menu ");
+            resp = entrada.nextInt();
+        
+        
+        
+        }
+    }
+}
+
+    
+
+ 
